@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Open Data Innovation CW1 | US Govt. Expenditure </title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--  Material Dashboard CSS    -->
+    <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+    <!--My styles-->
+    <link href="assets/css/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="assets/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+	<div class="wrapper">
+
+	    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-1.jpg">
+
+			<div class="logo">
+				<p class="simple-text">Filters</p>
+			</div>
+
+	    	<div class="sidebar-wrapper">
+	    		<br/>
+	    		<div id="rangeslider" style="padding-left: 20px; padding-right: 20px;">
+            		<p>Select date range<p>
+            		<input type="text" id="year_slider" name="yearSlider" value=""/>
+            	</div>
+
+            	<br/>
+            	<div id="deptselector" style="padding-left: 20px; padding-right: 20px;">
+            		<p>Select department<p>
+            		<select id="dept_selector" style="width: 100%">
+            		  <!--<option value="all">All</option>
+					  <option value="volvo">Volvo</option>
+					  <option value="saab">Saab</option>
+					  <option value="mercedes">Mercedes</option>
+					  <option value="audi">Audi</option>-->
+					</select>
+            	</div>
+	    	</div>
+	    </div>
+
+	    <div class="main-panel">
+			<nav class="navbar navbar-transparent navbar-absolute">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">U.S. Government Expenditure</a>
+					</div>
+				</div>
+			</nav>
+
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<div class="card card-stats">
+								<div class="card-header" data-background-color="orange">
+									<i class="material-icons">content_copy</i>
+								</div>
+								<div class="card-content">
+									<p class="category">Total projects started</p>
+									<h3 id="projects" class="title">4950</h3>
+								</div>
+								<div class="card-footer">
+									<div class="stats">
+										<i class="material-icons">date_range</i> For the currently selected time range
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<div class="card card-stats">
+								<div class="card-header" data-background-color="green">
+									<i class="material-icons">attach_money</i>
+								</div>
+								<div class="card-content">
+									<p class="category">Total revenue invested</p>
+									<h3 id="revenue" class="title">$34,245</h3>
+								</div>
+								<div class="card-footer">
+									<div class="stats">
+										<i class="material-icons">date_range</i> For the currently selected time range
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="card">
+								<div class="card-header card-chart" data-background-color="purple">
+									<!--<div class="ct-chart" id="dailySalesChart"></div>-->
+									<div id="bar_depts"></div>
+								</div>
+								<div class="card-content">
+									<h4 class="title">Short description</h4>
+								</div>
+								<div class="card-footer">
+									<div class="stats">
+										<i class="material-icons">info</i> <b>This bar chart
+											is double scaled with one side showing the total
+											projects the department/agency has started and
+											the total revenue needed for all the projects. The
+											chart is interactive by hovering the mouse over the
+											bars or clicking on the legend items right below the
+											bar to exclude variables if one needs to. This is also
+											controlled by the filters on the left.</b>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header card-chart" data-background-color="green">
+									<!--<div class="ct-chart" id="dailySalesChart"></div>-->
+									<div id="area_projects_expenditure"></div>
+								</div>
+								<div class="card-content">
+									<h4 class="title">Short description</h4>
+								</div>
+								<div class="card-footer">
+									<div class="stats">
+										<i class="material-icons">info</i> <b>The area graph consists 
+											of two lines, the total revenue that was planned to be 
+											spent by all departments each year, and the actual 
+											revenue all departments	ended up spending each year. 
+											This chart gives a good way of observing how well the 
+											government sticked to it’s planned budget The chart is 
+											interactive by hovering on the lines to view the details at
+											each data point, as well as clicking on the legend
+											items just below if one wished to view one variable
+											at a time. This is also controlled by the filters on the left.</b>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6 col-md-12">
+							<div class="card">
+								<div class="card-header card-chart" data-background-color="purple">
+									<!--<div class="ct-chart" id="dailySalesChart"></div>-->
+									<div id="doughnut_efficiency"></div>
+								</div>
+								<div class="card-content">
+									<h4 class="title">Short description</h4>
+								</div>
+								<div class="card-footer">
+									<div class="stats">
+										<i class="material-icons">info</i> <b>This chart was created using 
+										the cost variance in millions column. The chart is meant to allow one to toggle
+										between departments (using the filters) that spend more that the al-
+										located budget, and those that do not. The chart
+										is interactive by hovering over the different sections
+										of the doughnut to view more details. One can also
+										click on the various legend items below the chart
+										to exclude or include various variables.</b>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-12">
+							<div class="card">
+								<div class="card-header card-chart" data-background-color="orange">
+									<!--<div class="ct-chart" id="dailySalesChart"></div>-->
+									<div id="guage_schedule"></div>
+								</div>
+								<div class="card-content">
+									<h4 class="title">Short description</h4>
+								</div>
+								<div class="card-footer">
+									<div class="stats">
+										<i class="material-icons">info</i> <b>This is a guage that showcases
+										the percentage of projects that were completed on
+										time for the given time period by the date range
+										filter across all or one department. This is achieved
+										by using the schedule variance in days column to
+										see which projects according to each department
+										had a variance of 0 or below zero</b>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer class="footer">
+				<!--<div class="container-fluid">
+					<nav class="pull-left">
+						<ul>
+							<li>
+								<a href="#">
+									Home
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									Company
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									Portfolio
+								</a>
+							</li>
+							<li>
+								<a href="#">
+								   Blog
+								</a>
+							</li>
+						</ul>
+					</nav>
+					<p class="copyright pull-right">
+						&copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+					</p>
+				</div>-->
+			</footer>
+		</div>
+	</div>
+
+</body>
+
+	<!--   Core JS Files   -->
+	<script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="assets/js/material.min.js" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="assets/js/chartist.min.js"></script>
+
+	<!--  Notifications Plugin    -->
+	<script src="assets/js/bootstrap-notify.js"></script>
+
+	<!--  Google Maps Plugin    -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+	<!-- Material Dashboard javascript methods -->
+	<script src="assets/js/material-dashboard.js"></script>
+
+	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
+
+	<!--My scripts-->
+	<script src="https://code.highcharts.com/stock/highstock.js"></script>
+	<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="assets/js/ion.rangeSlider.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+
+    		//Define chart variables
+			var linegraph;
+			var barchart;
+			var piechart;
+			var guage;
+
+			var alldepts;
+			var yearFrom;
+			var yearTo;
+
+			//Dropdown selector
+			$.when(
+				$.ajax({
+				    url: "http://opendata.hengasystems.com:3010/departments",
+				    type: "POST",
+				    delay: 2500,
+				    success: function (data) {
+				    	alldepts = data['departments'];
+				    	//console.log("Depts: "+alldepts);
+				    }
+			})
+        	).then(function () {
+        		$("#dept_selector").select2({
+					theme: "classic",
+					data: alldepts
+				});
+
+				//Slider filter
+				$("#year_slider").ionRangeSlider({
+					type: "double",
+	    			grid: true,
+					min: 1992,
+				    max: 2013,
+				    from: 1992,
+				    to: 2013,
+				    onFinish: function (data) {
+				        //First get selected department
+				        var dept = $('#dept_selector').find(":selected").text();
+				        //Update charts
+				        if (typeof linegraph !== 'undefined') {
+						    // the variable is defined
+						    //console.log(dept+date.from+date.to);
+						    linegraph.destroy();
+							barchart.destroy();
+							piechart.destroy();
+							guage.destroy();
+						}
+
+						getProjectsRevenue(dept, data.from, data.to);
+
+						getExpenditureTime(dept, data.from, data.to);
+
+						getExpenditureDept(dept, data.from, data.to);
+
+						getEfficiency(dept, data.from, data.to);
+
+						getCompletion(dept, data.from, data.to);
+
+						//Save currently selected years
+						yearFrom = data.from;
+						yearTo = data.to;
+				    }
+				});
+        	});
+
+        	$('#dept_selector').change(function(){
+			    var dept = jQuery(this).val();
+			    //console.log("Selected: "+dept);
+
+			    //Update charts
+		        if (typeof linegraph !== 'undefined') {
+				    // the variable is defined
+				    //console.log(dept+date.from+date.to);
+				    linegraph.destroy();
+					barchart.destroy();
+					piechart.destroy();
+					guage.destroy();
+				}
+
+				getProjectsRevenue(dept, yearFrom, yearTo);
+
+				getExpenditureTime(dept, yearFrom, yearTo);
+
+				getExpenditureDept(dept, yearFrom, yearTo);
+
+				getEfficiency(dept, yearFrom, yearTo, dept);
+
+				getCompletion(dept, yearFrom, yearTo);
+			});
+
+			//Guage chart
+			//guage_chart(guage_schedule);
+
+			//Functions for all the charts
+			//getProjectsRevenue("All", "1992", "2013");
+
+			//getExpenditureTime("All", "1992", "2013");
+
+			//getExpenditureDept("All", "1992", "2013");
+
+			//getEfficiency("All", "1992", "2013");
+
+			//getCompletion("All", "1992", "2013");
+
+    	});
+
+    	function getProjectsRevenue(dept, dateFrom, dateTo){
+    		var totalprojects;
+    		var totalrevenue;
+			var data = "department="+dept+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+		
+    		$.when(
+    			$.ajax({
+			    url : "http://opendata.hengasystems.com:3010/totalprojectsandrevenue",
+			    type: "POST",
+			    data : data,
+			    success: function(data, textStatus, jqXHR)
+			    {
+			        totalprojects = data['projects'];
+	                totalrevenue = data['revenue'] / 1000;
+	                	
+	                //console.log("Projects: "+totalprojects);
+	                //console.log("Revenue: "+totalrevenue);
+			    },
+			    error: function (jqXHR, textStatus, errorThrown)
+			    {
+			 		//Catch error in case we want to show a popup dialog
+			    }
+			})
+        	).then(function () {
+        		$("#projects").html(totalprojects);
+        		$("#revenue").html("$"+totalrevenue.toLocaleString()+" (billion)");
+        	});
+    	}
+
+    	function getExpenditureTime(dept, dateFrom, dateTo){
+    		var years;
+    		var planned;
+    		var actual;
+    		var data = "department="+dept+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+
+    		$.when(
+    			$.ajax({
+			    url : "http://opendata.hengasystems.com:3010/expenditure",
+			    type: "POST",
+			    data : data,
+			    success: function(data, textStatus, jqXHR)
+			    {
+			        years = data['years'];
+	                planned = data['planned'];
+	                actual = data['actual'];
+	                	
+	                //console.log("Planned: "+planned);
+	                //console.log("Actual: "+actual);
+	                //console.log("Years: "+years);
+			    },
+			    error: function (jqXHR, textStatus, errorThrown)
+			    {
+			 		//Catch error in case we want to show a popup dialog
+			    }
+			})
+        	).then(function () {
+        		//Area chart of projects and expenditure
+		    	linegraph = Highcharts.chart('area_projects_expenditure', {
+				    chart: {
+				        type: 'area'
+				    },
+				    title: {
+				        text: 'Total project expenditure over time'
+				    },
+				    xAxis: {
+				        allowDecimals: false,
+				        title: {
+				            text: 'Year'
+				        },
+				        labels: {
+				            formatter: function () {
+				                return this.value; // clean, unformatted number for year
+				            }
+				        }
+				    },
+				    yAxis: {
+				        title: {
+				            text: 'Cost (billions)'
+				        },
+				        labels: {
+				            formatter: function () {
+				                return this.value + 'b';
+				            }
+				        }
+				    },
+				    tooltip: {
+				        pointFormat: '{series.name}:<b> {point.y} billion</b>'
+				    },
+				    plotOptions: {
+				        area: {
+				            pointStart: years[0],
+				            marker: {
+				                enabled: false,
+				                symbol: 'circle',
+				                radius: 2,
+				                states: {
+				                    hover: {
+				                        enabled: true
+				                    }
+				                }
+				            }
+				        }
+				    },
+				    credits: {
+		                enabled: false
+		            },
+				    series: [{
+				        name: 'Total planned cost',
+				        data: planned
+				    }, {
+				        name: 'Total actual cost',
+				        data: actual
+				    }]
+				});
+        	});
+    	}
+
+    	function getExpenditureDept(dept, dateFrom, dateTo){
+    		var sumprojects;
+    		var sumbudgets;
+    		var departments;
+
+    		var cols = 0;
+
+    		var data = "department="+dept+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+
+    		$.when(
+    			$.ajax({
+			    url : "http://opendata.hengasystems.com:3010/expdept",
+			    type: "POST",
+			    data : data,
+			    success: function(data, textStatus, jqXHR)
+			    {
+			        sumprojects = data['projectsums'];
+	                sumbudgets = data['budgetsums'];
+	                departments = data['departments'];
+	                
+	                if(departments.length>10){
+	                	cols = Math.round(Number(departments.length)/4);
+	                }
+	                else{
+	                	cols = Number(departments.length);
+	                }
+	                //console.log("Budgets: "+sumbudgets);
+	                //console.log("Depts: "+departments);
+	                //console.log("Projects: "+sumprojects);
+			    },
+			    error: function (jqXHR, textStatus, errorThrown)
+			    {
+			 		//Catch error in case we want to show a popup dialog
+			    }
+			})
+        	).then(function () {
+        		//Bar chart showing each departments total projects OR total expenditure
+				barchart = Highcharts.chart('bar_depts', {
+				    chart: {
+				        type: 'column'
+				        /*options3d: {
+				            enabled: true,
+				            alpha: 15,
+				            beta: 15,
+				            viewDistance: 25,
+				            depth: 40
+				        }*/
+				    },
+				    title: {
+				        text: 'Total projects and expenditure by department'
+				    },
+				    xAxis: {
+				        categories: departments,
+				        crosshair: true,
+				        scrollbar: {
+				            enabled: true
+				        },
+				        labels: {
+				        	autoRotation: false
+				        },
+				        min: 0,
+		        		max: cols
+				    },
+				    yAxis: [{ // Primary yAxis
+				        labels: {
+				            //format: '{value} (m)',
+				            labels: {
+					            formatter: function () {
+					                return this.value + 'b';
+					            }
+					        },
+				            style: {
+				                color: Highcharts.getOptions().colors[1]
+				            }
+				        },
+				        title: {
+				            text: '<b>Actual budget (billion)</b>',
+				            style: {
+				                color: Highcharts.getOptions().colors[1]
+				            }
+				        }
+				    }, { // Secondary yAxis
+				        title: {
+				            text: '<b>Total projects</b>',
+				            style: {
+				                color: Highcharts.getOptions().colors[0]
+				            }
+				        },
+				        labels: {
+				            format: '{value}',
+				            style: {
+				                color: Highcharts.getOptions().colors[0]
+				            }
+				        },
+				        opposite: true
+				    }],
+				    tooltip: {
+				        shared: true
+				    },
+				    plotOptions: {
+				        column: {
+				            pointPadding: 0.2,
+				            borderWidth: 0
+				        }
+				    },
+				    credits: {
+		                enabled: false
+		            },
+				    series: [{
+				        name: 'Total projects',
+				        yAxis: 1,
+				        data: sumprojects,
+				        tooltip: {
+				            valueSuffix: ' project(s)'
+				        }
+
+				    }, {
+				        name: 'Actual budget',
+				        data: sumbudgets,
+				        tooltip: {
+				            valueSuffix: ' billion'
+				        }
+				    }]
+				});
+        	});
+    	}
+
+    	function getEfficiency(dept, dateFrom, dateTo){
+    		var positives;
+    		var negatives;
+    		var data = "department="+dept+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+
+    		$.when(	
+	    		$.ajax({
+				    url : "http://opendata.hengasystems.com:3010/efficiency",
+				    type: "POST",
+				    data : data,
+				    success: function(data, textStatus, jqXHR)
+				    {
+				        
+		                positives = data['positiveVars'];
+		                //negatives = data['negativeVars'];
+		                //console.log("Positives: "+positives);
+				    },
+				    error: function (jqXHR, textStatus, errorThrown)
+				    {
+				 		//Catch error in case we want to show a popup dialog
+				    }
+				})
+				).then(function (){
+					//Doughnut showing which departments stick to budget by using the percentage of variance
+					piechart = Highcharts.chart('doughnut_efficiency', {
+					    chart: {
+					        type: 'pie'
+					        /*options3d: {
+					            enabled: true,
+					            alpha: 45
+					        }*/
+					    },
+					    title: {
+					        text: 'Department efficiency'
+					    },
+					    credits: {
+			                enabled: false
+			            },
+					    plotOptions: {
+					        pie: {
+					        	size: "90%",
+					        	dataLabels: {
+                					enabled: false
+                				},
+					            innerSize: 50,
+					            depth: 45,
+					            showInLegend: true
+					        }
+					    },
+					    series: [{
+					        name: 'Cost variance (b)',
+					        data: positives
+					        /*data: [
+					            ['Bananas', 8.1444],
+					            ['Kiwi', 3.12345],
+					            ['Mixed nuts', 1.123],
+					            ['Oranges', 6.2566],
+					            ['Apples', 8.4],
+					            ['Pears', 4],
+					            ['Clementines', 4],
+					            ['Reddish (bag)', 1],
+					            ['Grapes (bunch)', 1]
+					        ]*/
+					    }]
+					});
+
+				});
+    	}
+
+    	function getCompletion(dept, dateFrom, dateTo){
+    		var early;
+    		var late;
+    		var ontime;
+    		var total;
+    		var data = "department="+dept+"&dateFrom="+dateFrom+"&dateTo="+dateTo;
+
+    		$.when(	
+	    		$.ajax({
+				    url : "http://opendata.hengasystems.com:3010/completion",
+				    type: "POST",
+				    data : data,
+				    success: function(data, textStatus, jqXHR)
+				    {
+				        
+		                early = data['early'];
+		                late = data['late'];
+		                ontime = data['onTime'];
+		                total = data['total'];
+
+		                percentLate = ((Number(late)/Number(total))*100).toFixed(2);
+		                percentEarly = ((Number(early)/Number(total))*100).toFixed(2);
+		                percentOnTime = ((Number(ontime)/Number(total))*100).toFixed(2);
+
+		                late = Number(percentLate);
+		                early = Number(percentEarly);
+
+		                tempOnTime = (Number(percentOnTime) + Number(percentEarly)).toFixed(2);
+		                ontime = Number(tempOnTime);
+		                //console.log("Late: "+percentLate);
+				    },
+				    error: function (jqXHR, textStatus, errorThrown)
+				    {
+				 		//Catch error in case we want to show a popup dialog
+				    }
+				})
+				).then(function (){
+					//Gauge showing percentage of projects completed on schedule
+					guage = Highcharts.chart('guage_schedule', {
+					    chart: {
+					        type: 'gauge',
+					        plotBackgroundColor: null,
+					        plotBackgroundImage: null,
+					        plotBorderWidth: 0,
+					        plotShadow: false
+					    },
+
+					    title: {
+					        text: 'Percentage of projects completed on time'
+					    },
+
+					    pane: {
+					        startAngle: -150,
+					        endAngle: 150,
+					        background: [{
+					            backgroundColor: {
+					                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+					                stops: [
+					                    [0, '#FFF'],
+					                    [1, '#333']
+					                ]
+					            },
+					            borderWidth: 0,
+					            outerRadius: '109%'
+					        }, {
+					            backgroundColor: {
+					                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+					                stops: [
+					                    [0, '#333'],
+					                    [1, '#FFF']
+					                ]
+					            },
+					            borderWidth: 1,
+					            outerRadius: '107%'
+					        }, {
+					            // default background
+					        }, {
+					            backgroundColor: '#DDD',
+					            borderWidth: 0,
+					            outerRadius: '105%',
+					            innerRadius: '103%'
+					        }]
+					    },
+
+					    // the value axis
+					    yAxis: {
+					        min: 0,
+					        max: 100,
+
+					        minorTickInterval: 'auto',
+					        minorTickWidth: 1,
+					        minorTickLength: 10,
+					        minorTickPosition: 'inside',
+					        minorTickColor: '#666',
+
+					        tickPixelInterval: 30,
+					        tickWidth: 2,
+					        tickPosition: 'inside',
+					        tickLength: 10,
+					        tickColor: '#666',
+					        labels: {
+					            step: 2,
+					            rotation: 'auto'
+					        },
+					        title: {
+					            text: 'Percentage (%)'
+					        },
+					        plotBands: [{
+					            from: 0,
+					            to: 50,
+					            color: '#DF5353' // red
+					        }, {
+					            from: 50,
+					            to: 80,
+					            color: '#DDDF0D' // yellow
+					        }, {
+					            from: 80,
+					            to: 100,
+					            color: '#55BF3B' // green
+					        }]
+					    },
+					    credits: {
+			                enabled: false
+			            },
+					    series: [{
+					        name: 'Projects completed early/on time',
+					        data: [ontime],
+					        tooltip: {
+					            valueSuffix: ' %'
+					        }
+					    }]
+
+					});
+				});
+    	}
+		
+		//Function for guage
+		/*function guage_chart(chart) {
+		    if (!chart.renderer.forExport) {
+		        setInterval(function () {
+		            var point = chart.series[0].points[0],
+		                newVal,
+		                inc = Math.round((Math.random() - 0.5) * 10);
+
+		            newVal = point.y + inc;
+		            if (newVal < 0 || newVal > 100) {
+		                newVal = point.y - inc;
+		            }
+
+		            point.update(newVal);
+
+		        }, 3000);
+		    }
+		}*/
+		
+	</script>
+
+</html>
