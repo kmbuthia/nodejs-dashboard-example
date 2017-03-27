@@ -217,35 +217,7 @@
 			</div>
 
 			<footer class="footer">
-				<!--<div class="container-fluid">
-					<nav class="pull-left">
-						<ul>
-							<li>
-								<a href="#">
-									Home
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									Company
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									Portfolio
-								</a>
-							</li>
-							<li>
-								<a href="#">
-								   Blog
-								</a>
-							</li>
-						</ul>
-					</nav>
-					<p class="copyright pull-right">
-						&copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-					</p>
-				</div>-->
+
 			</footer>
 		</div>
 	</div>
@@ -372,20 +344,6 @@
 
 				getCompletion(dept, yearFrom, yearTo);
 			});
-
-			//Guage chart
-			//guage_chart(guage_schedule);
-
-			//Functions for all the charts
-			//getProjectsRevenue("All", "1992", "2013");
-
-			//getExpenditureTime("All", "1992", "2013");
-
-			//getExpenditureDept("All", "1992", "2013");
-
-			//getEfficiency("All", "1992", "2013");
-
-			//getCompletion("All", "1992", "2013");
 
     	});
 
@@ -685,17 +643,6 @@
 					    series: [{
 					        name: 'Cost variance (b)',
 					        data: positives
-					        /*data: [
-					            ['Bananas', 8.1444],
-					            ['Kiwi', 3.12345],
-					            ['Mixed nuts', 1.123],
-					            ['Oranges', 6.2566],
-					            ['Apples', 8.4],
-					            ['Pears', 4],
-					            ['Clementines', 4],
-					            ['Reddish (bag)', 1],
-					            ['Grapes (bunch)', 1]
-					        ]*/
 					    }]
 					});
 
@@ -837,25 +784,6 @@
 					});
 				});
     	}
-		
-		//Function for guage
-		/*function guage_chart(chart) {
-		    if (!chart.renderer.forExport) {
-		        setInterval(function () {
-		            var point = chart.series[0].points[0],
-		                newVal,
-		                inc = Math.round((Math.random() - 0.5) * 10);
-
-		            newVal = point.y + inc;
-		            if (newVal < 0 || newVal > 100) {
-		                newVal = point.y - inc;
-		            }
-
-		            point.update(newVal);
-
-		        }, 3000);
-		    }
-		}*/
 		
 	</script>
 
